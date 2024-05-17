@@ -7,7 +7,7 @@ const errorMiddleware = (err, req, res, next) => {
 
     if (err.code === 11000) {
         const error = Object.keys(err.keyPattern).join(",")
-        err.message = `Duplicate feild- ${error}`;
+        err.message = `${error} already taken`;
         err.statusCode = 400
     }
 
