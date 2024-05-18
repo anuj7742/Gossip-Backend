@@ -3,6 +3,7 @@ import { isAuthenticated } from "../middlewares/auth.js";
 import { 
     addMembers, 
     deleteChat, 
+    deleteMessage, 
     getChatDetails, 
     getMessages, 
     getMyChats, 
@@ -47,6 +48,8 @@ app.post("/message", attachmentMulter, sendAttachmentsValidator(), validateHandl
 
 //Get Message
 app.get("/message/:id",chatIdValidator(), validateHandler, getMessages)
+
+app.delete("/deletemessage/:id", deleteMessage)
 
 //Get chat details, rename, delete
 app.route("/:id")

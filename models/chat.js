@@ -1,28 +1,29 @@
-import mongoose, {Schema,Types, model} from 'mongoose'
+import mongoose, { Schema, Types, model } from 'mongoose'
 
 
 const schema = new Schema({
-    name:{
+    name: {
         type: String,
         required: true,
     },
-    groupChat : {
+    groupChat: {
         type: Boolean,
         default: false
     },
-    creator:{
+    creator: {
         type: Types.ObjectId,
         ref: "User"
     },
-    members:[
+    members: [
         {
             type: Types.ObjectId,
-            ref: "User"   
+            ref: "User"
         }
-    ]
-},{
+    ],
+
+}, {
     timestamps: true,
 });
 
 
-export  const Chat = mongoose.models.Chat || model("Chat", schema)
+export const Chat = mongoose.models.Chat || model("Chat", schema)

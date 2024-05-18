@@ -56,7 +56,7 @@ app.use('/api/v1/chat', chatRoute)
 app.use('/api/v1/admin', adminRoute)
 
 app.get("/" , (req,res) => {
-    res.send("Hello world")
+    res.send("Server is running")
 })
 
 io.use((socket, next) => {
