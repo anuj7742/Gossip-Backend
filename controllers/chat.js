@@ -330,7 +330,14 @@ const getChatDetails = TryCatch(async (req,res,next) => {
         })
     }
     else{
-        const chat = await Chat.findById(req.params.id);
+        const chat = await Chat.findById(req.params.id).populate("members", "name avatar").lean();
+
+        let otherMember = null;
+        if(!chat.groupChat){
+            const members = chat.members;
+            otherMember = getOtherMember(members, req.user);
+            otherMember.avatar = otherMember.avatar.url
+        }
 
         if(!chat){
             return next(new ErrorHandler("Chat not found",404))
@@ -339,6 +346,7 @@ const getChatDetails = TryCatch(async (req,res,next) => {
         return res.status(200).json({
             success: true,
             chat,
+            otherMember
         })
     }
 })
