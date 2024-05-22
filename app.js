@@ -17,6 +17,7 @@ import { getSockets } from "./lib/helper.js";
 import { Message } from "./models/message.js";
 import { corsOptions } from "./constants/config.js";
 import { socketAuthenticator } from "./middlewares/auth.js";
+import { Chat } from "./models/chat.js";
 
 dotenv.config({
 
@@ -107,7 +108,11 @@ io.on("connection", (socket) => {
         io.to(membersSocket).emit(NEW_MESSAGE_ALERT, {chatId})
 
         try{
-            await Message.create(messageForDB)
+            const createdMessage = await Message.create(messageForDB);
+
+            // Update the chat with the new last message
+            await Chat.findByIdAndUpdate(chatId, { lastMessage: createdMessage._id });
+
         }catch(error){
             console.log(error)
         }

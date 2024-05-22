@@ -14,6 +14,11 @@ const schema = new Schema({
         type: Types.ObjectId,
         ref: "User"
     },
+    lastMessage:{
+        type: Types.ObjectId,
+        ref:"Message",
+        default : null
+    },
     members: [
         {
             type: Types.ObjectId,
