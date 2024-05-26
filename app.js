@@ -98,8 +98,12 @@ io.on("connection", (socket) => {
 
         // console.log("Emitting ",messageForRealTime)
 
+        // console.log(members)
+
         const membersSocket = getSockets(members)
         
+        // console.log(membersSocket)
+
         io.to(membersSocket).emit(NEW_MESSAGE, {
             chatId,
             message : messageForRealTime
@@ -108,10 +112,10 @@ io.on("connection", (socket) => {
         io.to(membersSocket).emit(NEW_MESSAGE_ALERT, {chatId})
 
         try{
-            const createdMessage = await Message.create(messageForDB);
+            await Message.create(messageForDB);
 
             // Update the chat with the new last message
-            await Chat.findByIdAndUpdate(chatId, { lastMessage: createdMessage._id });
+            // await Chat.findByIdAndUpdate(chatId, { lastMessage: createdMessage._id });
 
         }catch(error){
             console.log(error)
