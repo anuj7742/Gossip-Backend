@@ -131,8 +131,6 @@ const sendFriendRequest = TryCatch(async (req,res, next) => {
         receiver: userId,
     })
 
-    emitEvent(req, NEW_REQUEST, [userId]);
-
 
     return res.status(200).json({
         success:true,
